@@ -6,7 +6,7 @@ global.expect = chai.expect;
 global.assert = chai.assert;
 
 
-
+exports.fs = require('fs');
 exports.Sftp = require(__dirname + '/../lib/sftp');
 exports.privateKey = process.env.NODE_SFTP_PRIVATEKEY;
 exports.username = process.env.NODE_SFTP_USERNAME;
