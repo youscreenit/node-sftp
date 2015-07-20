@@ -1,3 +1,33 @@
+describe('SSH', function(tnv) {
+  var scope = {};
+
+
+  it('test spawn command over ssh with a custom private key', function(done) {
+    tnv.SSH.spawn(tnv.privateKey, tnv.host, "pwd", [], function(err, ls) {
+      if (err) return done(err);
+
+      var out = err = "";
+
+      ls.on("exit", function(code) {
+        console.log(out, code);
+        //assert.equal(out, "/home/sshtest\n");
+        done();
+      });
+
+      ls.stdout.on("data", function(data) {
+        console.log("out: " + data);
+        out += data;
+      });
+
+      ls.stderr.on("data", function(data) {
+        console.log("err: " + data);
+        err += data;
+      });
+    });
+  });
+});
+
+
 /*
 
 
