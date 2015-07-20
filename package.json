@@ -24,6 +24,7 @@
   "dependencies": {
     "pty.js": "~0.2.6"
   },
+  "main": "./lib/sftp.js",
   "devDependencies": {
     "chai": "^3.2.0",
     "mocha-tnv": "^1.0.14"
