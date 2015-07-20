@@ -8,4 +8,5 @@
 
 ```
 make tests host=host username=username key=private-key-path
+make query q=sftp host=host username=username key=private-key-path
 ```
