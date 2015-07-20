@@ -1,0 +1,13 @@
+var chai = require('chai');
+
+
+global.should = chai.should();
+global.expect = chai.expect;
+global.assert = chai.assert;
+
+
+
+exports.Sftp = require(__dirname + '/../lib/sftp');
+exports.privateKey = process.env.NODE_SFTP_PRIVATEKEY;
+exports.username = process.env.NODE_SFTP_USERNAME;
+exports.host = process.env.NODE_SFTP_HOST;

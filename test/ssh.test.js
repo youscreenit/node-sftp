@@ -1,10 +1,5 @@
-/**
- * @package node-sftp
- * @subpackage test
- * @copyright  Copyright(c) 2011 Ajax.org B.V. <info AT ajax.org>
- * @author Mike de Boer <mike AT ajax DOT org>
- * @license http://github.com/ajaxorg/node-sftp/blob/master/LICENSE MIT License
- */
+/*
+
 
 var assert = require("assert");
 var ssh = require("./../lib/ssh");
@@ -86,3 +81,4 @@ module.exports = {
 }
 
 !module.parent && require("./../../async.js/lib/test").testcase(module.exports, "SSH Env").exec();
+*/
