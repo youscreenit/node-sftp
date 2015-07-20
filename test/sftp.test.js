@@ -102,6 +102,22 @@ describe('SFTP', function(tnv) {
   });
 
 
+  it('read existing dir', function(done) {
+    scope.sftp = new tnv.Sftp({
+      host: tnv.host,
+      username: tnv.username,
+      privateKey: tnv.privateKey
+    }, function(err) {
+      should.not.exist(err);
+
+      scope.sftp.readdir('/tmp', function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+  });
+
+
   it('write file', function(done) {
     scope.sftp = new tnv.Sftp({
       host: tnv.host,
