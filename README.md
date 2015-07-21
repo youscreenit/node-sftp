@@ -1,6 +1,7 @@
 # sftp2
 
 This repo is a fork of https://github.com/ajaxorg/node-sftp.
+I already improved the lib and fixed bugs.
 
 
 ### tests
