@@ -1,6 +1,6 @@
-# node-sftp
+# sftp2
 
-This repo was forked from https://github.com/ajaxorg/node-sftp, because its not maintained anymore.
+This repo is a fork of https://github.com/ajaxorg/node-sftp.
 
 
 ### tests
