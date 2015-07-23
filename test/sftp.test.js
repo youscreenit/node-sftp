@@ -129,7 +129,7 @@ describe('SFTP', function(tnv) {
       var filePath = __dirname + '/assets/a.js',
         file = tnv.fs.readFileSync(filePath, "utf8");
 
-      scope.sftp.writeFile('a.js', file, function(err, file) {
+      scope.sftp.writeFile('a.js', file, 'utf8', true, function(err) {
         should.not.exist(err);
 
         scope.sftp.stat('a.js', function(err, stat) {
@@ -141,6 +141,25 @@ describe('SFTP', function(tnv) {
 
           done();
         });
+      });
+    });
+  });
+
+
+  it('write file (check that file exists is false)', function(done) {
+    scope.sftp = new tnv.Sftp({
+      host: tnv.host,
+      username: tnv.username,
+      privateKey: tnv.privateKey
+    }, function(err) {
+      should.not.exist(err);
+
+      var filePath = __dirname + '/assets/a.js',
+        file = tnv.fs.readFileSync(filePath, "utf8");
+
+      scope.sftp.writeFile('a.js', file, 'utf8', false, function(err) {
+        should.not.exist(err);
+        done();
       });
     });
   });
@@ -188,7 +207,7 @@ describe('SFTP', function(tnv) {
     }, function(err) {
       should.not.exist(err);
 
-      scope.sftp.mkdir('/tmp/test', function(err) {
+      scope.sftp.mkdir('/tmp/test', true, function(err) {
         should.not.exist(err);
 
         scope.sftp.stat('/tmp/test', function(err, stat) {
