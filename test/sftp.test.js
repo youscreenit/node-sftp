@@ -86,6 +86,23 @@ describe('SFTP', function(tnv) {
   });
 
 
+  it('read root dir', function(done) {
+    scope.sftp = new tnv.Sftp({
+      host: tnv.host,
+      username: tnv.username,
+      privateKey: tnv.privateKey
+    }, function(err) {
+      should.not.exist(err);
+
+      scope.sftp.readdir('/', function(err, list) {
+        should.not.exist(err);
+        list.length.should.be.gt(1);
+        done();
+      });
+    });
+  });
+
+
   it('read non-existing dir', function(done) {
     scope.sftp = new tnv.Sftp({
       host: tnv.host,
@@ -95,7 +112,8 @@ describe('SFTP', function(tnv) {
       should.not.exist(err);
 
       scope.sftp.readdir('/tmp/xyz', function(err, dir) {
-        should.exist(err);
+        should.not.exist(err);
+        dir.length.should.eql(0);
         done();
       });
     });
