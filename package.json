@@ -3,7 +3,12 @@
   "version": "1.0.2",
   "description": "SFTP library for node.js",
   "author": "kirrg001",
-  "contributors": [],
+  "contributors": [
+    {
+      "name": "Sam Zilverberg",
+      "email": "samzilverberg@gmail.com"
+    }
+  ],
   "homepage": "http://github.com/kirrg001/node-sftp",
   "repository": {
     "type": "git",
