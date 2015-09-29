@@ -1,6 +1,6 @@
 {
   "name": "sftp-fork",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "SFTP library for node.js",
   "author": "kirrg001",
   "contributors": [
