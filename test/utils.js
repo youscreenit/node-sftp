@@ -1,9 +1,11 @@
-var chai = require('chai');
+var chai = require('chai'),
+  sinon = require('sinon');
 
 
 global.should = chai.should();
 global.expect = chai.expect;
 global.assert = chai.assert;
+global.sinon = sinon;
 
 
 exports.fs = require('fs');
