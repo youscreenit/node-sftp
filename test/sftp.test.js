@@ -5,50 +5,121 @@ describe('SFTP', function(tnv) {
 
   describe('connect', function() {
 
-    after(function(done) {
-      scope.sftp && scope.sftp.disconnect(done);
-    });
+    describe('connect to real sftp', function() {
 
-
-    it('test connection to host with wrong private key file', function(done) {
-      scope.sftp = new tnv.Sftp({
-        host: tnv.host,
-        username: tnv.username,
-        privateKey: ''
-      }, function(err) {
-        should.exist(err);
-        err.message.should.eql('permission denied');
-        done();
+      after(function(done) {
+        scope.sftp && scope.sftp.disconnect(done);
       });
-    });
 
 
-    it('test connection to host with private key file', function(done) {
-      scope.sftp = new tnv.Sftp({
-        host: tnv.host,
-        username: tnv.username,
-        privateKey: tnv.privateKey
-      }, function(err) {
-        should.not.exist(err);
-        done();
-      });
-    });
-
-
-    it('test connection to host with home dir set', function(done) {
-      scope.sftp = new tnv.Sftp({
-        host: tnv.host,
-        username: tnv.username,
-        home: "/home/" + tnv.username,
-        privateKey: tnv.privateKey
-      }, function(err) {
-        should.not.exist(err);
-
-        scope.sftp.pwd(function(err, path) {
-          assert.equal(err, null);
-          assert.equal(path, "/home/" + tnv.username);
+      it('test connection to host with wrong private key file', function(done) {
+        scope.sftp = new tnv.Sftp({
+          host: tnv.host,
+          username: tnv.username,
+          privateKey: ''
+        }, function(err) {
+          should.exist(err);
+          err.message.should.eql('permission denied');
           done();
         });
+      });
+
+
+      it('test connection to host with private key file', function(done) {
+        scope.sftp = new tnv.Sftp({
+          host: tnv.host,
+          username: tnv.username,
+          privateKey: tnv.privateKey
+        }, function(err) {
+          should.not.exist(err);
+          done();
+        });
+      });
+
+
+      it('test connection to host with home dir set', function(done) {
+        scope.sftp = new tnv.Sftp({
+          host: tnv.host,
+          username: tnv.username,
+          home: "/home/" + tnv.username,
+          privateKey: tnv.privateKey
+        }, function(err) {
+          should.not.exist(err);
+
+          scope.sftp.pwd(function(err, path) {
+            assert.equal(err, null);
+            assert.equal(path, "/home/" + tnv.username);
+            done();
+          });
+        });
+      });
+    });
+
+
+    describe('connection msg errors with mocked sftp', function() {
+
+      before(function(done) {
+        scope.pty = require('pty.js');
+        scope.EventEmitter = require('events').EventEmitter;
+
+        sinon.stub(scope.pty, 'spawn', function() {
+          scope.emitter = new scope.EventEmitter();
+          return scope.emitter;
+        });
+
+        done();
+      });
+
+      after(function() {
+        scope.pty.spawn.restore();
+      });
+
+
+      it('Operation timed out', function(done) {
+        scope.sftp = new tnv.Sftp({}, function(err) {
+          err.message.should.eql('Operation timed out');
+          done();
+        });
+
+        setTimeout(function() {
+          scope.emitter.emit('data', 'Operation timed out');
+        }, 100)
+      });
+
+
+      it('Connection closed', function(done) {
+        scope.sftp = new tnv.Sftp({}, function(err) {
+          err.message.should.eql('Connection closed');
+          done();
+        });
+
+        setTimeout(function() {
+          scope.emitter.emit('data', 'Connection closed');
+        }, 100)
+      });
+
+
+      it('Connection timed out', function(done) {
+        scope.sftp = new tnv.Sftp({}, function(err) {
+          err.message.should.eql('Connection timed out');
+          done();
+        });
+
+        setTimeout(function() {
+          scope.emitter.emit('data', 'Connection timed out');
+        }, 100)
+      });
+
+
+      it('Connection reset by peer', function(done) {
+        scope.sftp = new tnv.Sftp({}, function(err) {
+          err.message.should.eql('Connection reset by peer');
+          done();
+        });
+
+        setTimeout(function() {
+          scope.emitter.emit('data', 'Connection reset by peer');
+        }, 100)
       });
     });
   });

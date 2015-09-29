@@ -27,7 +27,8 @@
   },
   "devDependencies": {
     "chai": "^3.2.0",
-    "mocha-tnv": "^1.0.14"
+    "mocha-tnv": "^1.0.14",
+    "sinon": "^1.17.1"
   },
   "licenses": [
     {
