@@ -5,10 +5,10 @@ I already improved the lib and fixed bugs.
 
 
 ### tests
-- right now this repo will not provide a sftp test server for you
 
+- Tests are run against a real sftp server, which you will have to provide.
+- The server should only allow connecting with a private key
 
 ```
 make tests host=host username=username key=private-key-path
-make query q=sftp host=host username=username key=private-key-path
 ```
