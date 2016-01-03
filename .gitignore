@@ -1,2 +1,6 @@
 test/secrets.js
 node_modules/
+.sftp
+.idea
+
+npm-debug.log
